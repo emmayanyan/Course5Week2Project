@@ -1,7 +1,7 @@
 ---
 title: "Course5Week2Project"
-output:
-    html_document:
+
+output: html_document
     
 ---
 
@@ -165,18 +165,3 @@ ggplot(final,aes(x=factor(interval),y=final$steps))+facet_grid(.~WW)+geom_line()
 
 ![plot of chunk unnamed-chunk-18](figure/unnamed-chunk-18-1.png)
 
-
-
-```r
-knitr::knit("Course5_Week2_Project.Rmd")
-```
-
-```
-## 
-## 
-## processing file: Course5_Week2_Project.Rmd
-```
-
-```
-## Error in parse_block(g[-1], g[1], params.src): duplicate label 'setup'
-```

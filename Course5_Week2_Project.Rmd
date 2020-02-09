@@ -1,7 +1,7 @@
 ---
 title: "Course5Week2Project"
-output:
-    html_document:
+
+output: html_document
     
 ---
 
@@ -69,12 +69,12 @@ stepmean[stepmean[2]==max(stepmean[2]),]
 
 ## Q6 
 ## collect the missing data into "missing"
-```{r}
+```{r echo=TRUE}
 missing <- file[is.na(file$steps),]
 ```
 
 ## combine the missing data and the mean of the step data into one file based on the matching interval, and reordered the data by date & select out the columns based on the original file manner
-```{r}
+```{r echo=TRUE}
 com <- merge (missing,stepmean, by="interval")
 com <- com[order(com$date), ]
 reorder<-com[,c(4,3,1)]
@@ -82,13 +82,13 @@ names(reorder)[1] <- paste("steps")
 ```
 
 ## combine the missing data with added values and the no missing data used before for collecting the mean of steps to create the final data final, and reorganize the final by date
-```{r}
+```{r echo=TRUE}
 final <- rbind(NoMissing,reorder)
 final <- final[order(final$date),]
 ```
 
 ## group out the sum of steps for each day
-```{r}
+```{r echo=TRUE}
 final$date <- as.Date(final$date)
 finalsum <- aggregate(final$steps, by=list(final$date), sum)
 names(finalsum)[2] <- paste("steps_sum")
@@ -97,31 +97,27 @@ names(finalsum)[2] <- paste("steps_sum")
 
 ## Q7
 ## get the histogram for the steps per day
-```{r}
+```{r echo=TRUE}
 hist(finalsum$steps_sum,main="Histogram of Total Steps Per Day",xlab="Total Steps Per Day")
 
 ```
 
 ## Get the general information for finalsum to see the mean, median, etc
-```{r}
+```{r echo=TRUE}
 summary(finalsum)
 ```
 
 ## Q8
 ## Seperate out the weekdays and weekends by date information
-```{r}
+```{r echo=TRUE}
 final["WW"] <- weekdays(as.Date(final$date))
 final$WW[final$WW %in% c('Saturday','Sunday')] <- "weekend"
 final$WW[final$WW!="weekend"] <- "weekday"
 ```
 
 ## Plot the comparison graphics for weekdays and weekends step pattern
-```{r}
+```{r echo=TRUE}
 ggplot(final,aes(x=factor(interval),y=final$steps))+facet_grid(.~WW)+geom_line()+labs(x="interval",y="steps",title="Weekdays VS Weekends Steps")
 
 ```
 
-
-```{r}
-knitr::knit("Course5_Week2_Project.Rmd")
-```
